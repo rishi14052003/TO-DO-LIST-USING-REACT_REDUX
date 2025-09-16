@@ -1,6 +1,3 @@
-
-//TO-DO LIST USING REACT REDUX
-
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addTodo, deleteTodo, editTodo } from './counterSlice';
@@ -8,6 +5,7 @@ import { addTodo, deleteTodo, editTodo } from './counterSlice';
 const App = () => {
   const [task, setTask] = useState('');
   const [editTaskId, setEditTaskId] = useState(null);
+  const [deleteConfirmId, setDeleteConfirmId] = useState(null);
 
   const dispatch = useDispatch();
   const todos = useSelector((state) => state.todos);
@@ -20,10 +18,18 @@ const App = () => {
   };
 
   const handleDelete = (id) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete?');
-    if (confirmDelete) {
-      dispatch(deleteTodo(id));
+    setDeleteConfirmId(id); 
+  };
+
+  const confirmDelete = () => {
+    if (deleteConfirmId !== null) {
+      dispatch(deleteTodo(deleteConfirmId));
+      setDeleteConfirmId(null);
     }
+  };
+
+  const cancelDelete = () => {
+    setDeleteConfirmId(null); 
   };
 
   const handleEdit = (id, text) => {
@@ -45,7 +51,7 @@ const App = () => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{ padding: '20px', position: 'relative' }}>
       <h2>TO-DO LIST</h2>
 
       <input
@@ -68,6 +74,7 @@ const App = () => {
           </button>
         </>
       )}
+
       <ol>
         {todos.map((todo) => (
           <li key={todo.id} style={{ margin: '10px 0' }}>
@@ -81,7 +88,36 @@ const App = () => {
           </li>
         ))}
       </ol>
+
+      
+      {deleteConfirmId !== null && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0, left: 0,
+            width: '100%', height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            zIndex: 1000,
+          }}
+        >
+          <div
+            style={{
+              background: '#fff',
+              padding: '20px',
+              borderRadius: '8px',
+              boxShadow: '0 0 10px rgba(0,0,0,0.3)',
+              textAlign: 'center'
+            }}
+          >
+            <p>Are you sure you want to delete this task?</p>
+            <button onClick={confirmDelete} style={{ marginRight: '50px' }}>Yes</button>
+            <button onClick={cancelDelete}>No</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
+
 export default App;
