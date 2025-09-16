@@ -1,26 +1,3 @@
-/* this is basic program for counter +1,-1,reset to zero and to increase by a multiple of number
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { increment, decrement, reset, incrementByAmount } from './counterSlice';
-
-function App() {
-  const count = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch();
-
-  return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Redux Counter Example</h1>
-      <h2>{count}</h2>
-      <button onClick={() => dispatch(increment())}>+1</button>
-      <button onClick={() => dispatch(decrement())}>-1</button>
-      <button onClick={() => dispatch(reset())}>Reset</button>
-      <button onClick={() => dispatch(incrementByAmount(5))}>+5</button>
-    </div>
-  );
-}
-
-export default App;
-*/
 
 //TO-DO LIST USING REACT REDUX
 
