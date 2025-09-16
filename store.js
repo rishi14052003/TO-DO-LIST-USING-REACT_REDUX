@@ -1,14 +1,4 @@
-/* this is basic program for counter +1,-1,reset to zero and to increase by a multiple of number
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../src/counterSlice';
 
-export const store = configureStore({
-  reducer: {
-    counter: counterReducer,
-  },
-});
-
-*/
 
 //TO-DO LIST USING REACT REDUX
 
@@ -22,5 +12,6 @@ const store = configureStore({
 });
 
 export default store;
+
 
 
